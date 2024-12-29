@@ -1,5 +1,5 @@
 from email.policy import default
-
+import logging
 from odoo import models, fields, _
 
 
@@ -51,6 +51,8 @@ class EstateProperty(models.Model):
         """
         handler for a button
         """
+        logger = logging.getLogger("EstateProperty")
+        logger.info("******* action_start_wizard() called *******")
         return {
             "type": "ir.actions.act_window",
             "name": _("Start Wizard"),  # window title?

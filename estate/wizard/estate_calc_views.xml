@@ -10,10 +10,12 @@
                    <field name="x" string="ENTER X" />
                </group>
 
-<!--               <footer>-->
-<!--                   <button name="action_send_message" string="Send" type="object"/>-->
-<!--                   <button name="cancel" string="Cancel" special="cancel"/>-->
-<!--               </footer>-->
+               <footer>
+
+                   <!-- here the name="action_button_next1" matched Calc.action_button_next1() function" -->
+                   <button name="action_button_next1" string="Next1" type="object"/>
+                   <button name="cancel" string="Cancel" special="cancel"/>
+               </footer>
            </form>
        </field>
     </record>
