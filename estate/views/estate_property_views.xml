@@ -74,6 +74,9 @@
         <field name="arch" type="xml">
             <form string="MY FORM">
                 <sheet>
+
+                    <!-- name="" is name of the function.  type="object" means it triggers an odoo object action -->
+                    <button name="action_start_wizard" string="Wizard Button" type="object" class="oe_stat_button"/>
                     <group>
                         <!-- <group> puts fields into columns, inside the group auto labeled -->
                         <field name="name"/>

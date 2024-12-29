@@ -1,6 +1,6 @@
 from email.policy import default
 
-from odoo import models, fields
+from odoo import models, fields, _
 
 
 
@@ -13,6 +13,10 @@ def three_months(mymodel):
         fields.Date.today(),
         months=3,
     )
+
+
+
+
 
 
 class EstateProperty(models.Model):
@@ -42,3 +46,17 @@ class EstateProperty(models.Model):
     # this is special, when false the thing disappears from the UI: and needs to be
     # searched with filters
     active = fields.Boolean(default=True)
+
+    def action_start_wizard(self):
+        """
+        handler for a button
+        """
+        return {
+            "type": "ir.actions.act_window",
+            "name": _("Start Wizard"),  # window title?
+            "res_model": "estate.calc",
+            "target": "new",  # open in new tab or window
+            "view_mode": "form",
+            "view_type": "form",
+            "context": {"default_user_id": self.id},
+        }

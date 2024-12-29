@@ -10,5 +10,9 @@
             <!-- action="" refers to .xml file in views  -->
             <menuitem id="estate_type_action" name="Property Type" action="action_estate_property_type"/>
         </menuitem>
+        <menuitem id="estate_wizard_menu" name="Wizards">
+            <!-- not sure why this causes a parsing error: -->
+<!--            <menuitem id="estate_calc_something" name="Calculator" parent="estate_menu_root" action="start_calculator_wizard"/>-->
+        </menuitem>
     </menuitem>
 </odoo>

@@ -1,4 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
+    <record id="estate_calculator_view_form" model="ir.ui.view">
+       <field name="name">estate.calc.view.form</field>
+       <field name="model">estate.calc</field>
+       <field name="arch" type="xml">
+           <form string="Estate Calc Wizard">
+               <group>
+                   <field name="x" string="ENTER X" />
+               </group>
+
+<!--               <footer>-->
+<!--                   <button name="action_send_message" string="Send" type="object"/>-->
+<!--                   <button name="cancel" string="Cancel" special="cancel"/>-->
+<!--               </footer>-->
+           </form>
+       </field>
+    </record>
+
+    <!-- Action to call the wizard -->
+<!--    <record id="start_calculator_wizard" model="ir.actions.act_window">-->
+<!--        <field name="name">Use Calculator</field>-->
+<!--        <field name="type">ir.actions_act_window</field>-->
+<!--        <field name="res_model">estate.calc</field>-->
+<!--        <field name="view_mode">form</field>-->
+<!--        <field name="view_id" ref="estate_calculator_view_form"/>-->
+<!--        <field name="target">new</field>-->
+<!--    </record>-->
+
 </odoo>
