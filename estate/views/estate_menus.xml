@@ -1,9 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-<!--    root level menu -->
+    <!-- root level menu -->
     <menuitem id="estate_menu_root" name="Real Estate">
         <menuitem id="estate_first_level_menu" name="Advertisements">
             <menuitem id="estate_menu_action" name="Properties" action="action_estate_property"/>
+        </menuitem>
+        <!--  The sibling menu property_type from Tut.#7-->
+        <menuitem id="estate_type_first_level_menu" name="Estate Settings">
+            <!-- action="" refers to .xml file in views  -->
+            <menuitem id="estate_type_action" name="Property Type" action="action_estate_property_type"/>
         </menuitem>
     </menuitem>
 </odoo>
