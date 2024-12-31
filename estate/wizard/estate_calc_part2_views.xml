@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="estate_calc_part2_view_list" model="ir.ui.view">
+
+        <field name="name">NAME OF LIST VIEW</field>
+
+        <field name="model">estate.calc.part2</field>
+
+        <field name="arch" type="xml">
+            <list name="properties">
+                <field name="math_result" />
+                <field name="active" />
+            </list>
+        </field>
+    </record>
+</odoo>

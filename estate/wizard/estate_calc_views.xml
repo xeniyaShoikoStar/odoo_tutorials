@@ -13,7 +13,7 @@
                <footer>
 
                    <!-- here the name="action_button_next1" matched Calc.action_button_next1() function" -->
-                   <button name="action_button_next1" string="Next1" type="object"/>
+                   <button name="action_button_next1" string="Next1" type="object" class="btn-primary"/>
                    <button name="cancel" string="Cancel" special="cancel"/>
                </footer>
            </form>
