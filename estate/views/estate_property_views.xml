@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <!-- Action to Open Estate Property List/Forms Root, 1st level, inner level-->
+    <!-- Action to Open Estate Property List/Forms Root menu, 1st level, inner level-->
     <record id="action_estate_property" model="ir.actions.act_window">
         <field name="name">Estate properties Action</field>
         <field name="res_model">estate.property</field>
         <field name="view_mode">list,form</field>
     </record>
-
 
 
     <!-- DOCS:  https://www.odoo.com/documentation/18.0/developer/reference/user_interface/view_records.html -->
@@ -22,7 +21,7 @@
 <!--    </record>-->
 
 
-    <!-- CHAPTER 6  (<list> goes in place of <VIEW_TYPE> ...) _list matters-->
+    <!-- CHAPTER 6  (<list> goes in place of <VIEW_TYPE> ...) "_list" suffix matters -->
     <record id="estate_property_view_list" model="ir.ui.view">
         <!-- trying id="MODEL_view_TYPE" above -->
 
@@ -75,8 +74,11 @@
             <form string="MY FORM">
                 <sheet>
 
-                    <!-- name="" is name of the function.  type="object" means it triggers an odoo object action -->
-                    <button name="action_start_wizard" string="Wizard Button" type="object" class="oe_stat_button"/>
+                    <!-- name="" is name of the function.  type="object" means it triggers an odoo object action
+                    the class="" dictates a css class of an element
+                    the name="" must match the EstateProperty python class (estate.property.model) -->
+                    <button name="action_start_wizard" string="Wizard Button" type="object" class="btn-primary"/>
+                    <button name="action_start_property_match" string="Wizard Match" type="object" class="btn-primary"/>
                     <group>
                         <!-- <group> puts fields into columns, inside the group auto labeled -->
                         <field name="name"/>

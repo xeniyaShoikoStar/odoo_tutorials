@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="estate_property_match_part2_view_list" model="ir.ui.view">
+        <field name="name">NAME OF LIST VIEW</field>
+        <field name="model">estate.property.match.part2</field>
+        <field name="arch" type="xml">
+            <list name="matched properties">
+                <field name="match_res"/>
+            </list>
+        </field>
+    </record>
+</odoo>

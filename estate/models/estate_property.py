@@ -62,3 +62,17 @@ class EstateProperty(models.Model):
             "view_type": "form",
             "context": {"default_user_id": self.id},
         }
+
+    def action_start_property_match(self):
+        """
+        handler for a button: Match Property
+        """
+        return {
+            "type": "ir.actions.act_window",
+            "name": _("Match Wizard"),  # window title?
+            "res_model": "estate.property.match", # MUST match model's _name on model
+            "target": "new",  # open in new tab or window
+            "view_mode": "form",
+            "view_type": "form",
+            "context": {"default_user_id": self.id}, # possibly to pass a current property
+        }

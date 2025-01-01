@@ -12,8 +12,9 @@ class CalcPart2(models.TransientModel):
     # related_model_id = fields.Many2one('related.model', ondelete='cascade') #
 
     # manual deletion. Manually del. old records b4 adding new ones, but this gets a warning printed in logs:
-    # todo WARNING odoodb py.warnings: /home/xeniya_star/source_code/odoo/odoo/api.py:466: DeprecationWarning: The model odoo.addons.estate.wizard.estate_calc_part2 is not overriding the create method in batch
-    @api.model
+    # if WARNING odoodb py.warnings: /home/xeniya_star/source_code/odoo/odoo/api.py:466: DeprecationWarning: The model odoo.addons.estate.wizard.estate_calc_part2 is not overriding the create method in batch
+    # change to @api.model to @api.model_create_multi
+    @api.model_create_multi
     def create(self, vals):
         # del old records
         old_records = self.search([('create_uid', '=', self.env.uid)])
