@@ -6,7 +6,7 @@
         <field name="arch" type="xml">
             <form string="Matched Properties">
                 <group>
-                    <field name="to_match" string="Property to Match"/>
+                    <field name="to_match" string="Property id to Match"/>
                 </group>
                 <footer>
                      <!-- here the name="action_button_next2" matched MyTransientModel.action_button_next2() function" -->

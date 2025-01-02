@@ -5,7 +5,13 @@
         <field name="model">estate.property.match.part2</field>
         <field name="arch" type="xml">
             <list name="matched properties">
-                <field name="match_res"/>
+                <field name="property_id"/>
+                <field name="name"/>
+                <field name="description"/>
+                <field name="postcode"/>
+                <field name="bedrooms"/>
+                <field name="living_area"/>
+                <field name="match_percent"/>
             </list>
         </field>
     </record>

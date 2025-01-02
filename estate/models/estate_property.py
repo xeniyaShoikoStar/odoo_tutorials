@@ -65,8 +65,17 @@ class EstateProperty(models.Model):
 
     def action_start_property_match(self):
         """
-        handler for a button: Match Property
+        handler for a button: Match Property. When the wizard is opened,
+        .default_get() populates 'to_match' with the property_id from the context.
+        ! The method handles multiple records in a single call by default after odoo13,
+        no need of api decorator.
         """
+        # This is how you can access the fields of the active record in a form
+        current_id = self.id
+        property_name = self.name
+
+        logger = logging.getLogger("EstateProperty")
+        logger.info(f"current property id: {current_id} name={property_name}")
         return {
             "type": "ir.actions.act_window",
             "name": _("Match Wizard"),  # window title?
@@ -74,5 +83,8 @@ class EstateProperty(models.Model):
             "target": "new",  # open in new tab or window
             "view_mode": "form",
             "view_type": "form",
-            "context": {"default_user_id": self.id}, # possibly to pass a current property
+            "context": {
+                # "default_id": self.id,
+                "property_id": current_id,
+            }, # possibly to pass a current property
         }
