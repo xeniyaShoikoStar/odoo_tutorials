@@ -47,7 +47,7 @@ class PropertyMatch(models.TransientModel):
         logger.info(f"finding properties similar to property id: {property_id}")
 
         sql = SQL("""
-        SELECT A.id, A.name, A.postcode, A.bedrooms, A.living_area, B.id, B.name, B.postcode, B.bedrooms, B.living_area,
+        SELECT A.id, A.name, A.postcode, A.bedrooms, A.living_area, A.description, B.id, B.name, B.postcode, B.bedrooms, B.living_area, B.description,
         ( 
           (2.0 * (CASE WHEN a.postcode = b.postcode THEN 1 ELSE 0 END))
           + (1.0 * (CASE WHEN a.bedrooms = b.bedrooms THEN 1 ELSE 0 END))
@@ -75,12 +75,6 @@ class PropertyMatch(models.TransientModel):
         # fetch all res as list of dicts
         results = self.env.cr.dictfetchall()
         logger.info(f"results: {results}")
-        # [ {'id': 2,
-        # 'name': 'Beach house',
-        # 'postcode': '11130',
-        # 'bedrooms': 5,
-        # 'living_area': 2500,
-        # 'percent_match': 57.142857142857146}, {...} ]
 
         # todo: needs the clear the search results
         # these lines simulate creating records from the SQL query
@@ -89,7 +83,7 @@ class PropertyMatch(models.TransientModel):
                 "property_id": result['id'],
                 "name": result['name'],
                 'postcode': result['postcode'],
-                'description': 'add me to result query',
+                'description': result['description'],
                 'bedrooms': result['bedrooms'],
                 'living_area': result['living_area'],
                 'match_percent': result['percent_match'],

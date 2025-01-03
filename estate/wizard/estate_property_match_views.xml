@@ -10,7 +10,7 @@
                 </group>
                 <footer>
                      <!-- here the name="action_button_next2" matched MyTransientModel.action_button_next2() function" -->
-                   <button name="action_button_next2" string="Next2" type="object" class="btn-primary"/>
+                   <button name="action_button_next2" string="Match Property" type="object" class="btn-primary"/>
                    <button name="cancel" string="Cancel" special="cancel"/>
                 </footer>
             </form>

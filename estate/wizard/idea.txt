@@ -1,0 +1,90 @@
+odoo 18 need a functlionality "Match property", where it will take a propety in question and search db for a matched fields and calculate a percent match besed on a quantity of matched fields. I made a wizard to perform a custom query (wizard "match property" as a button inside of another "Property wizard") it produced the results perfect, but every time I use that search all previous results of a previous search stays in the wizard view adding up to a confusion. How do I clear out the results? Or replace them. I only need the last search, why are they even in there?
+Scale: What if the different users will be performing "Property match", will they all accumulate?
+ChatGPT said:
+ChatGPT
+
+It sounds like you are working on a custom wizard in Odoo 18 for performing property matches, and you're experiencing issues with accumulating results in the wizard view after each search. This is likely due to the fact that your search results are being stored in a record or variable that isn't cleared after each search, causing the previous results to remain visible.
+
+To fix this issue and ensure that only the latest search results are shown, you can follow these steps:
+# 1. Clearing Results on Each New Search
+
+You need to clear or reset the previous results every time the user triggers a new search. You can do this in the Python method associated with the wizard action. Here's how:
+
+-   Clear Results Before Performing New Search: Make sure to set the results field to False or an empty list when a new search is triggered.
+
+```
+class MatchPropertyWizard(models.TransientModel):
+    _name = 'match.property.wizard'
+    _description = 'Match Property Wizard'
+
+    search_results = fields.Text(string="Search Results")  # Assuming you're using a Text field to display results
+
+    def search_properties(self):
+        # Clear previous results
+        self.search_results = False
+
+        # Perform your custom search logic
+        # Example of searching and calculating match
+        matched_properties = self._perform_property_search()
+
+        # Store the latest results
+        self.search_results = matched_properties
+```
+
+Here, we reset search_results to False before performing the new search to ensure that the previous results don't persist.
+2. Replace Results in the Wizard View
+
+In your wizard view XML, make sure that you are displaying the search_results field correctly and that it's being updated dynamically. For example:
+
+```
+<record id="view_match_property_wizard" model="ir.ui.view">
+    <field name="name">match.property.wizard.form</field>
+    <field name="model">match.property.wizard</field>
+    <field name="arch" type="xml">
+        <form string="Match Property">
+            <sheet>
+                <group>
+                    <button name="search_properties" type="object" string="Match Property" />
+                    <field name="search_results" widget="text" readonly="1"/>
+                </group>
+            </sheet>
+        </form>
+    </field>
+</record>
+```
+
+Here, when a new search is initiated, the previous results will be cleared (because of the self.search_results = False), and only the most recent search results will be displayed.
+3. Handle Results Per User
+
+If different users will perform searches, you might want to ensure that the results are isolated per user session. This can be done by ensuring that the results are stored in the wizard instance (which is transient and specific to each user) rather than globally in the database.
+
+    Use TransientModel: Since you're already using a TransientModel for the wizard, the data is stored temporarily and should not persist across different users. Each user will have a separate instance of the wizard.
+
+    Make Sure Search Results Are User-Specific: Ensure that the results are not saved in a global field but are instead linked to the individual wizard session for each user. Odoo's transient models are by design temporary, so once the wizard is closed, the results should not persist.
+
+4. Use Context to Isolate User Data
+
+If you are storing any data in a global variable or model, you can use the context to isolate the search results per user. For example:
+```
+@api.model
+def default_get(self, fields):
+    res = super(MatchPropertyWizard, self).default_get(fields)
+    # You can filter or adjust default values based on the current user's context
+    return res
+```
+
+This ensures that each user has their own set of data during the interaction with the wizard.
+5. Clear Results After Wizard Closes (Optional)
+
+If you want to make sure results are cleared when the wizard is closed, you could use the @api.onchange decorator on the search_results field or handle the cleanup in the action that closes the wizard.
+```
+@api.onchange('search_results')
+def _clear_results_on_close(self):
+    if self.search_results:
+        self.search_results = False
+```
+Conclusion
+
+By ensuring the results are cleared (or replaced) every time a new search is performed, and by making sure they are tied to the user's current session in the transient wizard model, you can avoid the accumulation of previous results. Additionally, using context and the transient model’s nature will ensure that the results are isolated per user.
+
+This approach should keep your wizard clean and prevent confusion when multiple users are performing searches simultaneously.
