@@ -2,6 +2,7 @@ from email.policy import default
 import logging
 from odoo import models, fields, _
 
+from ..wizard import match_sql
 
 
 def three_months(mymodel):
@@ -84,7 +85,52 @@ class EstateProperty(models.Model):
             "view_mode": "form",
             "view_type": "form",
             "context": {
-                # "default_id": self.id,
+                # "property_id": self.id,
                 "property_id": current_id,
             }, # possibly to pass a current property
+        }
+
+    def action_button_similar_property(self):
+        logger = logging.getLogger("EstateProperty")
+        property_id = self.id
+        logger.info(f"finding properties similar to property id: {property_id}")
+
+        sql = match_sql.property_match_sql(property_id)
+
+        logger.info(f"SQL: {sql}")
+
+        self.env.cr.execute(sql)
+        # fetch all res as list of dicts
+        results = self.env.cr.dictfetchall()
+
+        # clear the search results
+        self.env['estate.property.match.part2'].search([]).update({
+            "active": False
+        })
+
+        # these lines simulate creating records from the SQL query
+        for result in results:
+            self.env["estate.property.match.part2"].create({
+                "property_id": result['id'],
+                "name": result['name'],
+                'postcode': result['postcode'],
+                'description': result['description'],
+                'bedrooms': result['bedrooms'],
+                'living_area': result['living_area'],
+                'match_count': result['match_count'],
+                'match_percent': result['percent_match'],
+            })
+
+        return {
+            "type": "ir.actions.act_window",
+            "name": _("Similar Properties"),  # window title?
+            "res_model": "estate.property.match.part2",
+            "target": "new",  # open in new tab or window
+            "view_mode": "list",
+            "view_type": "list",
+            "context": {
+                "property_id": self.id,
+                "create": 0,  # disallow "new" button on the list view
+                "edit": 0,
+            },
         }

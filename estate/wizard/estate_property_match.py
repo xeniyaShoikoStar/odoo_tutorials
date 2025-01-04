@@ -2,6 +2,9 @@ import logging
 from odoo import api, models, fields, _
 from odoo.tools import SQL
 
+from . import match_sql
+
+
 class PropertyMatch(models.TransientModel):
     _name = "estate.property.match"
     _description = "Match property with a Custom Query"
@@ -44,39 +47,22 @@ class PropertyMatch(models.TransientModel):
 
         logger = logging.getLogger("PropertyMatch")
         property_id = self._context.get("property_id")
+
         logger.info(f"finding properties similar to property id: {property_id}")
 
-        sql = SQL("""
-        SELECT A.id, A.name, A.postcode, A.bedrooms, A.living_area, A.description, B.id, B.name, B.postcode, B.bedrooms, B.living_area, B.description,
-        ( 
-          (2.0 * (CASE WHEN a.postcode = b.postcode THEN 1 ELSE 0 END))
-          + (1.0 * (CASE WHEN a.bedrooms = b.bedrooms THEN 1 ELSE 0 END))
-          + (0.5 * (CASE WHEN a.living_area = b.living_area THEN 1 ELSE 0 END))
-        ) * 100 / 3.5 as percent_match
-        
-        FROM estate_property AS A
-        INNER JOIN estate_property AS B
-        ON A.id != B.id 
-        AND (A.postcode = B.postcode OR A.bedrooms = B.bedrooms OR A.living_area = B.living_area)
-
-        WHERE ( 
-          (2.0 * (CASE WHEN a.postcode = b.postcode THEN 1 ELSE 0 END))
-          + (1.0 * (CASE WHEN a.bedrooms = b.bedrooms THEN 1 ELSE 0 END))
-          + (0.5 * (CASE WHEN a.living_area = b.living_area THEN 1 ELSE 0 END))
-        ) * 100 / 3.5 > 25
-        AND a.id = %s
-        
-        ORDER BY percent_match DESC;
-        """, property_id)
+        sql = match_sql.property_match_sql(property_id)
 
         logger.info(f"SQL: {sql}")
 
         self.env.cr.execute(sql)
         # fetch all res as list of dicts
         results = self.env.cr.dictfetchall()
-        logger.info(f"results: {results}")
 
-        # todo: needs the clear the search results
+        # clear the search results
+        self.env['estate.property.match.part2'].search([]).update({
+            "active": False
+        })
+
         # these lines simulate creating records from the SQL query
         for result in results:
             self.env["estate.property.match.part2"].create({
@@ -86,6 +72,7 @@ class PropertyMatch(models.TransientModel):
                 'description': result['description'],
                 'bedrooms': result['bedrooms'],
                 'living_area': result['living_area'],
+                'match_count': result['match_count'],
                 'match_percent': result['percent_match'],
             })
 

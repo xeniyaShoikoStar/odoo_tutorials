@@ -5,6 +5,7 @@ class PropertyMatchPart2(models.TransientModel):
     _name = "estate.property.match.part2"
     _description = "SQL query result list wizard"
 
+    active = fields.Boolean(default=True)
     # match_res = fields.Char()  # TODO remove
 
     property_id = fields.Char()
@@ -13,6 +14,7 @@ class PropertyMatchPart2(models.TransientModel):
     postcode = fields.Char()
     bedrooms = fields.Integer()
     living_area = fields.Integer()
+    match_count = fields.Integer()
     match_percent = fields.Char()
 
     # manual deletion. Manually del. old records b4 adding new ones.

@@ -78,7 +78,8 @@
                     the class="" dictates a css class of an element
                     the name="" must match the EstateProperty python class (estate.property.model) -->
                     <button name="action_start_wizard" string="Wizard Button" type="object" class="btn-primary"/>
-                    <button name="action_start_property_match" string="Wizard Match" type="object" class="btn-primary"/>
+                    <button name="action_start_property_match" string="Old Wizard Match" type="object" class="btn-primary"/>
+                    <button name="action_button_similar_property" string="New Wizard Match" type="object" class="btn-primary"/>
                     <group>
                         <!-- <group> puts fields into columns, inside the group auto labeled -->
                         <field name="name"/>

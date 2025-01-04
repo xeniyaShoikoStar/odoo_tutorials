@@ -1,5 +1,4 @@
-SELECT A.id, A.name, A.postcode, A.bedrooms, A.living_area, A.description,
-B.id, B.name, B.postcode, B.bedrooms, B.living_area, B.description,
+SELECT B.id, B.name, B.postcode, B.bedrooms, B.living_area, B.description,
 
 -- calculating % on matching fields, where:
 -- 2, 1, 0.5 are the weights to give the 'postcode' a greater effect on match.

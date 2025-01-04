@@ -3,15 +3,18 @@
     <record id="estate_property_match_part2_view_list" model="ir.ui.view">
         <field name="name">NAME OF LIST VIEW</field>
         <field name="model">estate.property.match.part2</field>
+
         <field name="arch" type="xml">
             <list name="matched properties">
+<!--                <field name="context">{"edit": 0, "create": 0}</field>-->
                 <field name="property_id"/>
                 <field name="name"/>
                 <field name="description"/>
                 <field name="postcode"/>
                 <field name="bedrooms"/>
                 <field name="living_area"/>
-                <field name="match_percent"/>
+                <field name="match_count" string="# attr matching"/>
+                <field name="match_percent" string="Match, %"/>
             </list>
         </field>
     </record>
