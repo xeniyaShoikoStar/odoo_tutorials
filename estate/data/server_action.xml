@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<!-- Server Action -->
+    <record id="ir_action_launch_match_wizard" model="ir.actions.server">
+            <field name="name">Find similar (estate.property)</field>
+            <field name="model_id" ref="model_estate_property"/>
+
+            <!-- this controls where it appears? -->
+            <field name="binding_model_id" ref="model_estate_property"/>
+            <field name="state">code</field>
+            <field name="code">
+                action = env['estate.property'].action_start_property_match2(record.id)
+            </field>
+    </record>
+
+
+    <record id="ir_action_launch_match_wizard_2" model="ir.actions.server">
+            <field name="name">Find similar (estate.property.match)</field>
+            <field name="model_id" ref="model_estate_property"/>
+
+            <!-- this controls where it appears? -->
+            <field name="binding_model_id" ref="model_estate_property"/>
+            <field name="state">code</field>
+            <field name="code">
+                action = env['estate.property.match'].action_button_next2(record.id)
+            </field>
+    </record>
+
+
+
+
+
+
+
+
+<!--    <act_window id="action_test_1"-->
+<!--                name="Action Test 1"-->
+<!--                src_model="model_estate_property"-->
+
+
+</odoo>
+<!--#products = env['product.template'].search([('x_studio_old_internal_reference','!=',False)])-->
+<!--#for p in products:-->
+<!--#    p['old_default_code'] = p.x_studio_old_internal_reference-->
+
+
+<!--#products = env['product.product'].search([('x_studio_old_internal_reference','!=',False)])-->
+<!--#for p in products:-->
+<!--#    p['old_default_code'] = p.x_studio_old_internal_reference-->

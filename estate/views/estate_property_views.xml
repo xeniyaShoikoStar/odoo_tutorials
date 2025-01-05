@@ -72,7 +72,7 @@
         <field name="model">estate.property</field>
         <field name="arch" type="xml">
             <form string="MY FORM">
-                <sheet>
+                <sheet name="buttons">
 
                     <!-- name="" is name of the function.  type="object" means it triggers an odoo object action
                     the class="" dictates a css class of an element

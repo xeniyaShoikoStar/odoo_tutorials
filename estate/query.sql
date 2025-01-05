@@ -1,3 +1,5 @@
+-- todo: might need to deal with null if considered !=
+-- todo: link the found matches results
 SELECT B.id, B.name, B.postcode, B.bedrooms, B.living_area, B.description,
 
 -- calculating % on matching fields, where:

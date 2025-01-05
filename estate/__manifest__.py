@@ -1,3 +1,4 @@
+# noinspection PyStatementEffect
 {
     'name': 'Estate',
     'author': 'Xeniya',
@@ -16,6 +17,7 @@
         'wizard/estate_property_match_views.xml',
         'wizard/estate_property_match_part2.xml',
         'views/estate_menus.xml',
+        'data/server_action.xml',
         # 'data/test.xml' # !!! if this file is empty or WIP turn it off it breaks the module
     ],
     'installable': True,

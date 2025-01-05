@@ -90,6 +90,27 @@ class EstateProperty(models.Model):
             }, # possibly to pass a current property
         }
 
+    def action_start_property_match2(self, property_id):
+        """
+        copy I am making for the server action
+        """
+
+
+        logger = logging.getLogger("EstateProperty")
+        logger.info(f"current property id: {property_id}")
+        return {
+            "type": "ir.actions.act_window",
+            "name": _("Match Wizard"),  # window title?
+            "res_model": "estate.property.match", # MUST match model's _name on model
+            "target": "new",  # open in new tab or window
+            "view_mode": "form",
+            "view_type": "form",
+            "context": {
+                # "property_id": self.id,
+                "property_id": property_id,
+            }, # possibly to pass a current property
+        }
+
     def action_button_similar_property(self):
         logger = logging.getLogger("EstateProperty")
         property_id = self.id

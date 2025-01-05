@@ -30,7 +30,7 @@ class PropertyMatch(models.TransientModel):
         return rec
 
     # this method name, "action_button_next1" must match the name="" attribute of the <button> tag
-    def action_button_next2(self):
+    def action_button_next2(self, property_id=None):
         """
         Sequence:
         - on property form, press [Wizard Match] to launch estate_property_match
@@ -46,7 +46,7 @@ class PropertyMatch(models.TransientModel):
         # sql = SQL("UPDATE TABLE foo SET a = %s, b = %s", "hello", 42)
 
         logger = logging.getLogger("PropertyMatch")
-        property_id = self._context.get("property_id")
+        property_id = property_id or self._context.get("property_id")
 
         logger.info(f"finding properties similar to property id: {property_id}")
 

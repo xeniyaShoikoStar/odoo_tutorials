@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<data>
+
+    <record id="inherited_estate_property_form" model="ir.ui.view">
+        <field name="name">inherited.model.form.inherit.test</field>
+        <field name="model">estate.property</field>
+
+        <!-- reference to estate/views/estate_property_views.xml -->
+        <field name="inherit_id" ref="estate.estate_property_view_form"/>
+        <field name="arch" type="xml">
+            <!-- find field description and add the field
+                 new_field after it -->
+<!--            <xpath expr="//field[@name='description']" position="after">-->
+<!--              <field name="new_field"/>-->
+<!--            </xpath>-->
+
+
+
+            <!-- GOT THE ERROR:  Element '<xpath expr="//div[@name=&#39;buttons&#39;]">' cannot be located in parent view -->
+<!--            <xpath expr="//div[@name='buttons']" position="inside">-->
+            <xpath expr="//button[@name='action_start_wizard']" position="after">
+
+                <button name="my_inherited_button" class="btn-primary" type="object" string="INHERIT TEST"/>
+
+            </xpath>
+
+
+        </field>
+    </record>
+
+</data>
+</odoo>
